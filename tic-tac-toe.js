@@ -7,6 +7,7 @@ let addBoardClass= () => {
         cells[i].classList.add('square');
     }
 
+    //Add mouse hover
     for (let j=0; j < cells.length; j++){
         cells[j].onmouseover = function(){cells[j].classList.toggle("hover",true)}
         cells[j].onmouseout = function(){cells[j].classList.toggle("hover",false)}
@@ -38,18 +39,36 @@ let addBoardClass= () => {
         });
     }
 
+    //Reset the game
+    document.getElementsByClassName("btn")[0].addEventListener("click",function(){
+
+        gameState.length= 0; // Clears the array
+        
+        //Put all cells blank
+        for(let i = 0; i < cells.length; i++){
+            cells[i].textContent=("");
+        }
+
+        //Change back status to default
+        document.getElementById("status").textContent = 
+        "Move your mouse over a square and click to play an X or an O.";
+        document.getElementById("status").classList.remove("you-won");
+        
+    });
 
 }
 
+//Load the page
 document.addEventListener('DOMContentLoaded', addBoardClass);
 
 var gameState=[]; 
 //Dont forget to clear this when new game starts
 
-/*
-    Index numbers
 
-      0  |  1   | 2
+/*
+    Index numbers:
+
+      0 |   1   | 2
     .................
       3 |   4   | 5
     .................
@@ -57,10 +76,9 @@ var gameState=[];
     
 */
 
-
+//Checks the different ways someone can win
 var checkWinner= (cells) => {
 
-    //Checks the different ways someone can win
     if (cells[0].textContent !== "" && cells[0].textContent === cells[1].textContent && cells[0].textContent === cells[2].textContent){
         document.getElementById('status').classList.add("you-won");
         document.getElementById('status').textContent=   "Congratulations! "+ cells[0].textContent + " is the Winner!"
@@ -93,6 +111,6 @@ var checkWinner= (cells) => {
         document.getElementById('status').classList.add("you-won");
         document.getElementById('status').textContent = "Congratulations! "+ cells[0].textContent + " is the Winner!"
      }
-     
+  
      
 }
