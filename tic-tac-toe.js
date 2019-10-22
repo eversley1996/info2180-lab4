@@ -15,21 +15,22 @@ let addBoardClass= () => {
 
     //Add event listeners to all divs
     for (let i=0; i<cells.length; i++){
-
+        //Add functionality to each cell
         cells[i].addEventListener("click",function(){
 
-            if(gameState.length==0){ //Game just started
+            if(gameState.length==0 && cells[i].textContent=== ""){ //Game just started
                 cells[i].classList.add("X");
                 cells[i].textContent=("X");
                 gameState.push("X");
                 checkWinner(cells);
             }else{
-                if (gameState[gameState.length - 1]== 'X'){
+                if (gameState[gameState.length - 1]== 'X' && cells[i].textContent=== ""){
                     cells[i].classList.add("O");
                     cells[i].textContent=("O");
                     gameState.push("O");
                     checkWinner(cells);
-                }else{
+
+                }else if (cells[i].textContent=== ""){
                     cells[i].classList.add("X");
                     cells[i].textContent=("X");
                     gameState.push("X");
@@ -46,7 +47,7 @@ let addBoardClass= () => {
         
         //Put all cells blank
         for(let i = 0; i < cells.length; i++){
-            cells[i].textContent=("");
+            cells[i].innerHTML=("");
         }
 
         //Change back status to default
@@ -56,6 +57,10 @@ let addBoardClass= () => {
         
     });
 
+    //Make cells unselectable
+    for (let k=0; k < cells.length; k++){
+        cells[k].setAttribute("unSelectable", "on");
+    }
 }
 
 //Load the page
